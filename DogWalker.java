@@ -2,17 +2,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class DogWalker {
+public class DogWalker
+{
+    private int maxDogs;
 
-    public static int Money(String companyNumber, String maxDogs, String startTime, String endTime) throws FileNotFoundException {
-        File f = new File("companies.txt");
-        java.util.Scanner s = new Scanner(f);
-        while (s.hasNextLine()) {
-            if (s.nextLine().equals(companyNumber)) {
-                return 1;
-            }
-        }
+    private DogWalkCompany company;
 
-        return 0;
+    public DogWalker(int max, DogWalkCompany comp)
+    {
+        maxDogs = max;
+        company = comp;
+    }
+
+    public int walkDogs(int hour)
+    {
+        int availableDogs = company.numAvailableDogs(hour);
+        int dogsToWalk = Math.min(maxDogs, availableDogs);
+        company.updateDogs(hour, dogsToWalk);
+        return dogsToWalk;
+    }
+
+    public int dogWalkShift(int startHour, int endHour)
+    {
+
     }
 }
